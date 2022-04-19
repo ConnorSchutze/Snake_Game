@@ -6,4 +6,4 @@
 
 # Pushing this
 
-# Directory ->(Adding) # Staging Area ->(Committing) # GitHub
+# Directory ->(Adding) # Staging Area ->(Committing) # Git ->(Push) -> Github
