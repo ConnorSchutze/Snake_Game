@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     while running:
         pygame_run = True
-	    # tkinter class
+        # tkinter class
         # tkinter class returns pygame_run as False if clicked QUIT button
 
     if pygame_run == True:
