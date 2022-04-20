@@ -6,7 +6,7 @@
 
 import pygame
 import sys
-# import tkinter_mainmenu
+# from menu import Menu
 from game import Game
 
 # main.py -> 1 -> 2
@@ -18,14 +18,14 @@ from game import Game
 
 # Directory ->(Adding) # Staging Area ->(Committing) # Git ->(Push) -> Github
 
-cell_size = 40
+# Snake grid system
+cell_size = 30
 cell_width = 17
 cell_height = 15
 
+# Screen resolution
 screen_width = cell_size * cell_width
 screen_height = screen_width
-
-fps = 60
 
 if __name__ == '__main__':
    running = True
@@ -33,9 +33,9 @@ if __name__ == '__main__':
    while running:
       pygame_run = True
       # tkinter class
+      # tkinter class returns pygame_run as False if clicked QUIT button
 
       if pygame_run == True:
-         game = Game(screen_width, screen_height, fps)
+         game = Game(screen_width, screen_height, cell_size, cell_width, cell_height)
          game.main()
 
-      
