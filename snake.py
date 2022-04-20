@@ -14,7 +14,7 @@ class Snake:
       self.color = (255, 255, 255)
       self.screen = pygame.display.get_surface()
 
-      self.body = [Vector2(5, 10), Vector2(6, 10), Vector2(7, 10)]
+      self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
       self.direction = Vector2(1, 0)
       self.new_body = False
    

@@ -37,13 +37,17 @@ class Game:
                     self.update()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_w or event.key == pygame.K_UP:
-                        self.snake.direction = pygame.math.Vector2(0, -1)
+                        if self.snake.direction.y != 1:
+                            self.snake.direction = pygame.math.Vector2(0, -1)
                     if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                        self.snake.direction = pygame.math.Vector2(0, 1)
+                        if self.snake.direction.y != -1:
+                            self.snake.direction = pygame.math.Vector2(0, 1)
                     if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                        self.snake.direction = pygame.math.Vector2(-1, 0)
+                        if self.snake.direction.x != 1:
+                            self.snake.direction = pygame.math.Vector2(-1, 0)
                     if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                        self.snake.direction = pygame.math.Vector2(1, 0)
+                        if self.snake.direction.x != -1:
+                            self.snake.direction = pygame.math.Vector2(1, 0)
 
             self.screen.fill((0, 0, 0))
             self.draw()
@@ -60,11 +64,23 @@ class Game:
     def update(self):
         self.snake.movement()
         self.collisions()
+        self.die()
 
     def collisions(self):
         if self.food.position == self.snake.body[0]:
             self.food.random_position()
             self.snake.new_snake_body()
+
+    def die(self):
+        if not 0 <= self.snake.body[0].x <= self.cell_width or not 2 <= self.snake.body[0].y <= self.cell_height:
+            self.game_over()
+        
+        for snake_body in self.snake.body[1:]:
+            if snake_body == self.snake.body[0]:
+                self.game_over()
+    
+    def game_over(self):
+        self.running = False
 
 if __name__ == '__main__':
     game = Game(400, 400)
