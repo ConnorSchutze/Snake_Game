@@ -23,5 +23,5 @@ class Food:
     
     def random_position(self):
         self.x = random.randint(0, self.cell_width-1)
-        self.y = random.randint(2, self.cell_height-1)
+        self.y = random.randint(self.cell_width-self.cell_height, self.cell_height-1)
         self.position = Vector2(self.x, self.y)

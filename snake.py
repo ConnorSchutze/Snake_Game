@@ -16,6 +16,7 @@ class Snake:
 
       self.body = [Vector2(5, 10), Vector2(6, 10), Vector2(7, 10)]
       self.direction = Vector2(1, 0)
+      self.new_body = False
    
    def draw(self):
       for snake_block in self.body:
@@ -26,6 +27,15 @@ class Snake:
          pygame.draw.rect(self.screen, self.color, snake_block_rect)
 
    def movement(self):
-      og_body = self.body[:-1]
-      og_body.insert(0, og_body[0] + self.direction)
-      self.body = og_body
+      if self.new_body == True:
+         og_body = self.body
+         og_body.insert(0, og_body[0] + self.direction)
+         self.body = og_body
+         self.new_body = False
+      else:
+         og_body = self.body[:-1]
+         og_body.insert(0, og_body[0] + self.direction)
+         self.body = og_body
+   
+   def new_snake_body(self):
+      self.new_body = True

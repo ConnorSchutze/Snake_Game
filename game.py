@@ -64,6 +64,7 @@ class Game:
     def collisions(self):
         if self.food.position == self.snake.body[0]:
             self.food.random_position()
+            self.snake.new_snake_body()
 
 if __name__ == '__main__':
     game = Game(400, 400)
