@@ -4,8 +4,6 @@
    Description: Executes all of the code and displays it on screen.
 """
 
-import pygame
-import sys
 # from menu import Menu
 from game import Game
 

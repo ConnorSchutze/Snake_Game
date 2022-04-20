@@ -8,7 +8,11 @@ import pygame
 from pygame.math import Vector2
 
 class Snake:
+   """Creating a snake character."""
    def __init__(self, cell_size):
+      """"Getting the size of each snake body, settings the snakes
+      position and direction.
+      """
       pygame.init()
       self.cell_size = cell_size
       self.color = (255, 255, 255)
@@ -19,6 +23,7 @@ class Snake:
       self.new_body = False
    
    def draw(self):
+      """Drawing every snake body onto the display surface."""
       for snake_block in self.body:
          x_position = int(snake_block.x * self.cell_size)
          y_position = int(snake_block.y * self.cell_size)
@@ -27,6 +32,7 @@ class Snake:
          pygame.draw.rect(self.screen, self.color, snake_block_rect)
 
    def movement(self):
+      """The movement of every snake body to its next position."""
       if self.new_body == True:
          og_body = self.body
          og_body.insert(0, og_body[0] + self.direction)
@@ -38,4 +44,5 @@ class Snake:
          self.body = og_body
    
    def new_snake_body(self):
+      """Check to see if the snake needs a new body."""
       self.new_body = True

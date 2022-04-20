@@ -58,20 +58,24 @@ class Game:
         sys.exit()
     
     def draw(self):
+        """Draw snake and food onto the display surface."""
         self.food.draw()
         self.snake.draw()
 
     def update(self):
+        """Updating the screen for movement and collisions."""
         self.snake.movement()
         self.collisions()
         self.die()
 
     def collisions(self):
+        """Detect the collisions between snake and food."""
         if self.food.position == self.snake.body[0]:
             self.food.random_position()
             self.snake.new_snake_body()
 
     def die(self):
+        """Detect whether the snake died or not."""
         if not 0 <= self.snake.body[0].x <= self.cell_width or not 2 <= self.snake.body[0].y <= self.cell_height:
             self.game_over()
         
@@ -80,8 +84,10 @@ class Game:
                 self.game_over()
     
     def game_over(self):
+        """When the snake dies, displays Game Over text and options."""
         self.running = False
 
+
 if __name__ == '__main__':
-    game = Game(400, 400)
+    game = Game((17*30),(17*30), 30, 17, 15)
     game.main()
