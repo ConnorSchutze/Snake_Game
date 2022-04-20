@@ -12,6 +12,8 @@ class Game:
         self.cell_size = cell_size
         self.cell_width = cell_width
         self.cell_height = cell_height
+        self.screen_width = screen_width
+        self.screen_height = screen_height
         self.screen = pygame.display.set_mode((screen_width, screen_height))
         pygame.display.set_caption('Snake Game')
         self.clock = pygame.time.Clock()
@@ -19,6 +21,7 @@ class Game:
         self.fps = 60
         self.running = True
 
+        self.snake = Snake(self.cell_size)
         self.food = Food(self.cell_size, self.cell_width, self.cell_height)
     
     def main(self):
@@ -29,7 +32,12 @@ class Game:
                     self.running = False
 
             self.screen.fill((0, 0, 0))
+            self.snake.draw()
             self.food.draw()
+            # ------ Temporary code, top box -----
+            box_rect = pygame.Rect(0, 0, self.screen_width, 80)
+            pygame.draw.rect(self.screen, (0, 255, 255), box_rect)
+            # ------ Temporary code, top box -----
             pygame.display.update()
             self.clock.tick(self.fps)
         
