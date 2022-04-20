@@ -4,3 +4,7 @@
    Description: Snake class script, creates the snake object.
 """
 
+import pygame
+
+class Snake:
+    pass
