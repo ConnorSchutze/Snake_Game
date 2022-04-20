@@ -7,7 +7,7 @@ root.title("SnakeGame")
 root.minsize(width=400, height=400)
 root.maxsize(width=400, height=400)
 
-img_menu = ImageTk.PhotoImage(Image.open("menusnake.jpg"))
+img_menu = ImageTk.PhotoImage(Image.open("images\menusnake.png"))
 menu_label = Label(root, image=img_menu)
 menu_label.place(x=0, y=0, relwidth=1, relheight=1)
 
