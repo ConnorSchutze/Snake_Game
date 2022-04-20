@@ -25,11 +25,11 @@ class Game:
             self.screen.fill((0, 0, 0))
             pygame.display.update()
             self.clock.tick(self.fps)
+        
+        pygame.quit()
+        sys.exit()
 
 
 if __name__ == '__main__':
-    game = Game(400, 400)
-    game.main(60)
-
-    pygame.quit()
-    sys.exit()
+    game = Game(400, 400, 600)
+    game.main()
