@@ -15,6 +15,7 @@ class Snake:
       self.screen = pygame.display.get_surface()
 
       self.body = [Vector2(5, 10), Vector2(6, 10), Vector2(7, 10)]
+      self.direction = Vector2(1, 0)
    
    def draw(self):
       for snake_block in self.body:
@@ -25,4 +26,6 @@ class Snake:
          pygame.draw.rect(self.screen, self.color, snake_block_rect)
 
    def movement(self):
-      pass
+      og_body = self.body[:-1]
+      og_body.insert(0, og_body[0] + self.direction)
+      self.body = og_body

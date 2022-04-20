@@ -12,10 +12,7 @@ class Food:
         self.color = (255, 0, 0)
         self.screen = pygame.display.get_surface()
 
-        # Food position
-        self.x = random.randint(0, self.cell_width-1)
-        self.y = random.randint(2, self.cell_height-1)
-        self.position = Vector2(self.x, self.y)
+        self.random_position()
 
     def draw(self):
         """Draw the fruit onto the display surface."""
@@ -23,3 +20,8 @@ class Food:
                                 int(self.position.y * self.cell_size), 
                                 self.cell_size, self.cell_size)
         pygame.draw.rect(self.screen, self.color, food_rect)
+    
+    def random_position(self):
+        self.x = random.randint(0, self.cell_width-1)
+        self.y = random.randint(2, self.cell_height-1)
+        self.position = Vector2(self.x, self.y)

@@ -23,27 +23,47 @@ class Game:
 
         self.snake = Snake(self.cell_size)
         self.food = Food(self.cell_size, self.cell_width, self.cell_height)
-    
+
     def main(self):
         """Main game loop."""
+        move_update = pygame.USEREVENT
+        pygame.time.set_timer(move_update, 150)
+
         while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                if event.type == move_update:
+                    self.update()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_w or event.key == pygame.K_UP:
+                        self.snake.direction = pygame.math.Vector2(0, -1)
+                    if event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                        self.snake.direction = pygame.math.Vector2(0, 1)
+                    if event.key == pygame.K_a or event.key == pygame.K_LEFT:
+                        self.snake.direction = pygame.math.Vector2(-1, 0)
+                    if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                        self.snake.direction = pygame.math.Vector2(1, 0)
 
             self.screen.fill((0, 0, 0))
-            self.snake.draw()
-            self.food.draw()
-            # ------ Temporary code, top box -----
-            box_rect = pygame.Rect(0, 0, self.screen_width, 80)
-            pygame.draw.rect(self.screen, (0, 255, 255), box_rect)
-            # ------ Temporary code, top box -----
+            self.draw()
             pygame.display.update()
             self.clock.tick(self.fps)
         
         pygame.quit()
         sys.exit()
+    
+    def draw(self):
+        self.food.draw()
+        self.snake.draw()
 
+    def update(self):
+        self.snake.movement()
+        self.collisions()
+
+    def collisions(self):
+        if self.food.position == self.snake.body[0]:
+            self.food.random_position()
 
 if __name__ == '__main__':
     game = Game(400, 400)
