@@ -17,14 +17,7 @@ t3 = "Welcome to Snake Game!"
 """set t4 to read the file scoreboard.txt KEEP ONLY THE HIGHEST SCORE IN THERE"""
 t4 = "5670"
 
-def score_update():
-    score_file = open("score.txt", "r", "w")
-    score_file.read(5)
-    int(score_file)
-    new_score = score_file + 10
-    score_file.write(new_score + "   ")
-    score_file.close("score.txt")
-    
+
 def start():
     """quit the root window here and begin the pygame window thing."""
     print("what?")
