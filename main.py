@@ -33,6 +33,6 @@ if __name__ == '__main__':
         # tkinter class
         # tkinter class returns pygame_run as False if clicked QUIT button
 
-    if pygame_run == True:
-        game = Game(screen_width, screen_height, cell_size, cell_width, cell_height)
-        game.main()
+        if pygame_run == True:
+            game = Game(screen_width, screen_height, cell_size, cell_width, cell_height)
+            game.main()
