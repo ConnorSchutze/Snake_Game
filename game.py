@@ -2,6 +2,7 @@ import pygame
 import sys
 from snake import Snake
 from food import Food
+from score import Score
 
 
 class Game:
@@ -15,7 +16,7 @@ class Game:
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = pygame.display.set_mode((screen_width, screen_height))
-        pygame.display.set_caption('Snake Game')
+        pygame.display.set_caption("Snake Game")
         self.clock = pygame.time.Clock()
 
         self.fps = 60
@@ -23,6 +24,7 @@ class Game:
 
         self.snake = Snake(self.cell_size)
         self.food = Food(self.cell_size, self.cell_width, self.cell_height)
+        self.score = Score()
 
     def main(self):
         """Main game loop."""
@@ -62,6 +64,7 @@ class Game:
         self.background()
         self.food.draw()
         self.snake.draw()
+        self.score.draw(self.snake.body)
 
     def update(self):
         """Updating the screen for movement and collisions."""
