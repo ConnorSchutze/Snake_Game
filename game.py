@@ -49,7 +49,7 @@ class Game:
                         if self.snake.direction.x != -1:
                             self.snake.direction = pygame.math.Vector2(1, 0)
 
-            self.screen.fill((0, 0, 0))
+            self.screen.fill((0, 255, 150))
             self.draw()
             pygame.display.update()
             self.clock.tick(self.fps)
@@ -59,6 +59,7 @@ class Game:
     
     def draw(self):
         """Draw snake and food onto the display surface."""
+        self.background()
         self.food.draw()
         self.snake.draw()
 
@@ -86,6 +87,22 @@ class Game:
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
         self.running = False
+
+    def background(self):
+        color_one = (0, 255, 0)
+
+        for row in range(self.cell_height):
+            row += 2
+            if row % 2 == 0:
+                for column in range(self.cell_width):
+                    if column % 2 == 0:
+                        checker1_rect = pygame.Rect(column * self.cell_size, row * self.cell_size, self.cell_size, self.cell_size)
+                        pygame.draw.rect(self.screen, color_one, checker1_rect)
+            else:
+                for column in range(self.cell_width):
+                    if column % 2 != 0:
+                        checker1_rect = pygame.Rect(column * self.cell_size, row * self.cell_size, self.cell_size, self.cell_size)
+                        pygame.draw.rect(self.screen, color_one, checker1_rect)
 
 
 if __name__ == '__main__':
