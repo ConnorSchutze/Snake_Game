@@ -2,13 +2,13 @@ import pygame
 
 
 class Score:
-    def __init__(self, text_color = (255, 255, 255), score_x = 5, score_y = 5):
+    def __init__(self, text_color = (0, 0, 0), score_x = 15, score_y = 15):
         pygame.init()
         self.text_color = text_color
         self.score_x = score_x
         self.score_y = score_y
         self.score_location = (self.score_x, self.score_y)
-        self.font = pygame.font.Font("Fonts/pac_font.tff", 25)
+        self.font = pygame.font.Font(None, 25)
         self.screen = pygame.display.get_surface()
     
     def draw(self, snake):
