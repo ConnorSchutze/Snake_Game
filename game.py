@@ -95,7 +95,8 @@ class Game:
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
         self.snake.reset()
-        self.running = False
+        if self.running == False:
+            self.running = False
 
     def background(self):
         color_one = (0, 255, 0)
