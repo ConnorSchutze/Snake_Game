@@ -99,17 +99,18 @@ class Snake:
         elif snake_butt_direction == Vector2(0, -1):
             self.butt = self.butt_down
 
-    def movement(self):
+    def movement(self, started):
         """The movement of every snake body to its next position."""
-        if self.new_body == True:
-            og_body = self.body
-            og_body.insert(0, og_body[0] + self.direction)
-            self.body = og_body
-            self.new_body = False
-        else:
-            og_body = self.body[:-1]
-            og_body.insert(0, og_body[0] + self.direction)
-            self.body = og_body
+        if started:
+            if self.new_body == True:
+                og_body = self.body
+                og_body.insert(0, og_body[0] + self.direction)
+                self.body = og_body
+                self.new_body = False
+            else:
+                og_body = self.body[:-1]
+                og_body.insert(0, og_body[0] + self.direction)
+                self.body = og_body
     
     def new_snake_body(self):
         """Check to see if the snake needs a new body."""

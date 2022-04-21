@@ -7,7 +7,7 @@ from score import Score
 
 class Game:
     """Creation of the snake game."""
-    def __init__(self, screen_width, screen_height, cell_size, cell_width, cell_height):
+    def __init__(self, screen_width, screen_height, cell_size, cell_width, cell_height, menu_run):
         """Creation of the screen and game attributes."""
         pygame.init()
         self.cell_size = cell_size
@@ -21,6 +21,7 @@ class Game:
 
         self.fps = 60
         self.running = True
+        self.menu_run = menu_run
 
         self.snake = Snake(self.cell_size)
         self.food = Food(self.cell_size, self.cell_width, self.cell_height)
@@ -28,6 +29,7 @@ class Game:
 
     def main(self):
         """Main game loop."""
+        self.game_started = False
         self.direction_choosen = False
         move_update = pygame.USEREVENT
         pygame.time.set_timer(move_update, 150)
@@ -39,22 +41,20 @@ class Game:
                 if event.type == move_update:
                     self.update()
                 if event.type == pygame.KEYDOWN and self.direction_choosen == False:
+                    self.game_started = True
+                    self.direction_choosen = True
                     if event.key == pygame.K_w or event.key == pygame.K_UP:
                         if self.snake.direction.y != 1:
                             self.snake.direction = pygame.math.Vector2(0, -1)
-                            self.direction_choosen = True
                     if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                         if self.snake.direction.y != -1:
                             self.snake.direction = pygame.math.Vector2(0, 1)
-                            self.direction_choosen = True
                     if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                         if self.snake.direction.x != 1:
                             self.snake.direction = pygame.math.Vector2(-1, 0)
-                            self.direction_choosen = True
                     if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                         if self.snake.direction.x != -1:
                             self.snake.direction = pygame.math.Vector2(1, 0)
-                            self.direction_choosen = True
 
             self.screen.fill((0, 255, 150))
             self.draw()
@@ -74,7 +74,7 @@ class Game:
     def update(self):
         """Updating the screen for movement and collisions."""
         self.direction_choosen = False
-        self.snake.movement()
+        self.snake.movement(self.game_started)
         self.collisions()
         self.die()
 
@@ -95,13 +95,13 @@ class Game:
             self.game_over()
         
         for snake_body in self.snake.body[1:]:
-            if snake_body == self.snake.body[0]:
+            if snake_body == self.snake.body[0] and self.game_started:
                 self.game_over()
     
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
         self.snake.reset()
-        if self.running == False:
+        if self.running == True:
             self.running = False
 
     def background(self):
@@ -122,5 +122,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game((17*30),(17*30), 30, 17, 15)
+    game = Game((17*30),(17*30), 30, 17, 15, True)
     game.main()
