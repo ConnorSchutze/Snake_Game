@@ -24,7 +24,7 @@ class Game:
 
         self.snake = Snake(self.cell_size)
         self.food = Food(self.cell_size, self.cell_width, self.cell_height)
-        self.score = Score()
+        self.score = Score(self.cell_size)
 
     def main(self):
         """Main game loop."""
