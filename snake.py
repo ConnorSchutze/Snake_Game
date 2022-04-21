@@ -16,25 +16,28 @@ class Snake:
         pygame.init()
         self.cell_size = cell_size
         self.screen = pygame.display.get_surface()
-        self.color = (255, 255, 255)
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(1, 0)
         self.new_body = False
 
         # Snake Images
-        self.head_up = pygame.image.load("Images/headup.png").convert_alpha()
-        self.head_down = pygame.image.load("Images/headup.png").convert_alpha()
-        self.head_left = pygame.image.load("Images/headup.png").convert_alpha()
-        self.head_right = pygame.image.load("Images/headup.png").convert_alpha()
+        self.head_up = pygame.image.load("Images/headup.png").convert_alpha() # Correct
+        self.head_down = pygame.image.load("Images/headup.png").convert_alpha() # Wrong
+        self.head_left = pygame.image.load("Images/headup.png").convert_alpha() # Wrong
+        self.head_right = pygame.image.load("Images/headup.png").convert_alpha() # Wrong
         
-        self.butt_up = pygame.image.load("Images/butt.png").convert_alpha()
-        self.butt_down = pygame.image.load("Images/butt.png").convert_alpha()
-        self.butt_left = pygame.image.load("Images/butt.png").convert_alpha()
-        self.butt_right = pygame.image.load("Images/butt.png").convert_alpha()
+        self.butt_up = pygame.image.load("Images/butt.png").convert_alpha() # Correct
+        self.butt_down = pygame.image.load("Images/butt.png").convert_alpha() # Wrong
+        self.butt_left = pygame.image.load("Images/butt.png").convert_alpha() # Wrong
+        self.butt_right = pygame.image.load("Images/butt.png").convert_alpha() # Wrong
         
-        self.straight_vertical = pygame.image.load("Images/straight1.png").convert_alpha()
+        self.straight_vertical = pygame.image.load("Images/straight1.png").convert_alpha() # Correct
+        self.straight_horizontal = pygame.image.load("Images/straight1.png").convert_alpha() # Wrong
         
-        self.turn_one = pygame.image.load("Images/turn1.png").convert_alpha()
+        self.turn_one = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
+        self.turn_two = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
+        self.turn_three = pygame.image.load("Images/turn1.png").convert_alpha() # Correct
+        self.turn_four = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
     
     def draw(self):
         """Drawing every snake body onto the display surface."""
@@ -52,7 +55,22 @@ class Snake:
             elif index == len(self.body) - 1:
                 self.screen.blit(self.butt, snake_block_rect)
             else:
-                pygame.draw.rect(self.screen, self.color, snake_block_rect)
+                last_body = self.body[index + 1] - snake_block
+                next_body = self.body[index - 1] - snake_block
+
+                if last_body.x == next_body.x:
+                    self.screen.blit(self.straight_vertical, snake_block_rect)
+                elif last_body.y == next_body.y:
+                    self.screen.blit(self.straight_horizontal, snake_block_rect)
+                else:
+                    if last_body.x == -1 and next_body.y == -1 or last_body.y == -1 and next_body.x == -1: # Going right then up / going down then left
+                        self.screen.blit(self.turn_one, snake_block_rect)
+                    elif last_body.x == -1 and next_body.y == 1 or last_body.y == 1 and next_body.x == -1: # Going right then down / going up then left
+                        self.screen.blit(self.turn_two, snake_block_rect)
+                    elif last_body.x == 1 and next_body.y == -1 or last_body.y == -1 and next_body.x == 1: # Going left then up / going down then right
+                        self.screen.blit(self.turn_three, snake_block_rect)
+                    elif last_body.x == 1 and next_body.y == 1 or last_body.y == 1 and next_body.x == 1: # Going left then down / going up then right:
+                        self.screen.blit(self.turn_four, snake_block_rect)
 
     def direction_draw_head(self):
         snake_head_direction = self.body[1] - self.body[0]
