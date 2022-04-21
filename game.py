@@ -77,6 +77,7 @@ class Game:
         if self.food.position == self.snake.body[0]:
             self.food.random_position()
             self.snake.new_snake_body()
+            self.snake.play_eat_sound()
 
     def die(self):
         """Detect whether the snake died or not."""

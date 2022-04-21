@@ -38,6 +38,9 @@ class Snake:
         self.turn_two = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
         self.turn_three = pygame.image.load("Images/turn1.png").convert_alpha() # Correct
         self.turn_four = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
+
+        # Sound
+        self.eat_sound = pygame.mixer.Sound("Audio/applause.wav")
     
     def draw(self):
         """Drawing every snake body onto the display surface."""
@@ -111,3 +114,6 @@ class Snake:
     def new_snake_body(self):
         """Check to see if the snake needs a new body."""
         self.new_body = True
+    
+    def play_eat_sound(self):
+        self.eat_sound.play()
