@@ -13,7 +13,6 @@ class Food:
         self.cell_size = cell_size
         self.cell_width = cell_width
         self.cell_height = cell_height
-        self.color = (255, 0, 0)
         self.apple = pygame.image.load("Images/apple.png").convert_alpha()
         self.apple = pygame.transform.scale(self.apple, (cell_size, cell_size))
         self.screen = pygame.display.get_surface()
@@ -26,7 +25,6 @@ class Food:
                                 int(self.position.y * self.cell_size), 
                                 self.cell_size, self.cell_size)
         self.screen.blit(self.apple, food_rect)
-        # pygame.draw.rect(self.screen, self.color, food_rect)
     
     def random_position(self):
         """Find one random cell on screen for the food to spawn."""
