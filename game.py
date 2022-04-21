@@ -78,6 +78,10 @@ class Game:
             self.food.random_position()
             self.snake.new_snake_body()
             self.snake.play_eat_sound()
+        
+        for snake_body in self.snake.body[1:]:
+            if snake_body == self.food.position:
+                self.food.random_position()
 
     def die(self):
         """Detect whether the snake died or not."""
@@ -90,6 +94,7 @@ class Game:
     
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
+        self.snake.reset()
         self.running = False
 
     def background(self):
