@@ -15,27 +15,68 @@ class Snake:
         """
         pygame.init()
         self.cell_size = cell_size
-        self.color = (255, 255, 255)
         self.screen = pygame.display.get_surface()
-
+        self.color = (255, 255, 255)
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(1, 0)
         self.new_body = False
 
         # Snake Images
-        # Snake head
-        # Snake tail
-        # Snake body (horizontal, vertical)
-        # Snake body (directions)
+        self.head_up = pygame.image.load("Images/headup.png").convert_alpha()
+        self.head_down = pygame.image.load("Images/headup.png").convert_alpha()
+        self.head_left = pygame.image.load("Images/headup.png").convert_alpha()
+        self.head_right = pygame.image.load("Images/headup.png").convert_alpha()
+        
+        self.butt_up = pygame.image.load("Images/butt.png").convert_alpha()
+        self.butt_down = pygame.image.load("Images/butt.png").convert_alpha()
+        self.butt_left = pygame.image.load("Images/butt.png").convert_alpha()
+        self.butt_right = pygame.image.load("Images/butt.png").convert_alpha()
+        
+        self.straight_vertical = pygame.image.load("Images/straight1.png").convert_alpha()
+        
+        self.turn_one = pygame.image.load("Images/turn1.png").convert_alpha()
     
     def draw(self):
         """Drawing every snake body onto the display surface."""
-        for snake_block in self.body:
+        self.direction_draw_head()
+        self.direction_draw_butt()
+
+        for index, snake_block in enumerate(self.body):
             x_position = int(snake_block.x * self.cell_size)
             y_position = int(snake_block.y * self.cell_size)
             snake_block_rect = pygame.Rect(x_position, y_position, 
                                         self.cell_size, self.cell_size)
-            pygame.draw.rect(self.screen, self.color, snake_block_rect)
+            
+            if index == 0:
+                self.screen.blit(self.head, snake_block_rect)
+            elif index == len(self.body) - 1:
+                self.screen.blit(self.butt, snake_block_rect)
+            else:
+                pygame.draw.rect(self.screen, self.color, snake_block_rect)
+
+    def direction_draw_head(self):
+        snake_head_direction = self.body[1] - self.body[0]
+
+        if snake_head_direction == Vector2(1, 0):
+            self.head = self.head_left
+        elif snake_head_direction == Vector2(-1, 0):
+            self.head = self.head_right
+        elif snake_head_direction == Vector2(0, 1):
+            self.head = self.head_up
+        elif snake_head_direction == Vector2(0, -1):
+            self.head = self.head_down
+    
+    def direction_draw_butt(self):
+        snake_butt_direction = self.body[1] - self.body[0]
+
+        if snake_butt_direction == Vector2(1, 0):
+            self.butt = self.butt_left
+        elif snake_butt_direction == Vector2(-1, 0):
+            self.butt = self.butt_right
+        elif snake_butt_direction == Vector2(0, 1):
+            self.butt = self.butt_up
+        elif snake_butt_direction == Vector2(0, -1):
+            self.butt = self.butt_down
 
     def movement(self):
         """The movement of every snake body to its next position."""
