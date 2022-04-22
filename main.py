@@ -28,7 +28,7 @@ screen_height = screen_width
 if __name__ == '__main__':
     running = True
     tkinter_menu = Menu(False)
-    game = Game(screen_width, screen_height, cell_size, cell_width, cell_height, True)
+    game = Game(screen_width, screen_height, cell_size, cell_width, cell_height)
     tkinter_menu.main(0)
 
     if tkinter_menu.pygame_run == True:
