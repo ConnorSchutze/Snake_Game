@@ -1,16 +1,21 @@
-"""File: snake.py
-   Team NO: 5
-   Author: Connor Schutze
-   Description: Snake class script, creates the snake object.
+"""File: snake.py.
+
+Team NO: 5
+Author: Connor Schutze
+Description: Snake class script, creates the snake object.
 """
 
 import pygame
 from pygame.math import Vector2
 
+
 class Snake:
     """Creating a snake character."""
+
     def __init__(self, cell_size):
-        """"Getting the size of each snake body, settings the snakes
+        """Gathering snake attributes.
+
+        Getting the size of each snake body, settings the snakes
         position and direction.
         """
         pygame.init()
@@ -25,15 +30,17 @@ class Snake:
         self.head_down = pygame.image.load("Images/head3.png").convert_alpha()
         self.head_left = pygame.image.load("Images/head4.png").convert_alpha()
         self.head_right = pygame.image.load("Images/head2.png").convert_alpha()
-        
+
         self.butt_up = pygame.image.load("Images/butt.png").convert_alpha()
         self.butt_down = pygame.image.load("Images/butt3.png").convert_alpha()
         self.butt_left = pygame.image.load("Images/butt4.png").convert_alpha()
         self.butt_right = pygame.image.load("Images/butt2.png").convert_alpha()
-        
-        self.straight_vertical = pygame.image.load("Images/straight1.png").convert_alpha()
-        self.straight_horizontal = pygame.image.load("Images/straight2.png").convert_alpha()
-        
+
+        self.straight_vertical = pygame.image.load("Images/straight1.png") \
+            .convert_alpha()
+        self.straight_horizontal = pygame.image.load("Images/straight2.png") \
+            .convert_alpha()
+
         self.turn_one = pygame.image.load("Images/turn4.png").convert_alpha()
         self.turn_two = pygame.image.load("Images/turn3.png").convert_alpha()
         self.turn_three = pygame.image.load("Images/turn1.png").convert_alpha()
@@ -42,7 +49,7 @@ class Snake:
         # Sound
         self.eat_sound = pygame.mixer.Sound("Audio/applause.wav")
         self.eat_sound.set_volume(0.05)
-    
+
     def draw(self):
         """Drawing every snake body onto the display surface."""
         self.direction_draw_head()
@@ -51,9 +58,9 @@ class Snake:
         for index, snake_block in enumerate(self.body):
             x_position = int(snake_block.x * self.cell_size)
             y_position = int(snake_block.y * self.cell_size)
-            snake_block_rect = pygame.Rect(x_position, y_position, 
-                                        self.cell_size, self.cell_size)
-            
+            snake_block_rect = pygame.Rect(x_position, y_position,
+                                           self.cell_size, self.cell_size)
+
             if index == 0:
                 self.screen.blit(self.head, snake_block_rect)
             elif index == len(self.body) - 1:
@@ -65,18 +72,28 @@ class Snake:
                 if last_body.x == next_body.x:
                     self.screen.blit(self.straight_vertical, snake_block_rect)
                 elif last_body.y == next_body.y:
-                    self.screen.blit(self.straight_horizontal, snake_block_rect)
+                    self.screen.blit(self.straight_horizontal,
+                                     snake_block_rect)
                 else:
-                    if last_body.x == -1 and next_body.y == -1 or last_body.y == -1 and next_body.x == -1: # Going right then up / going down then left
+                    if last_body.x == -1 and next_body.y == -1 \
+                       or last_body.y == -1 and next_body.x == -1:
+                        # Going right then up / going down then left
                         self.screen.blit(self.turn_one, snake_block_rect)
-                    elif last_body.x == -1 and next_body.y == 1 or last_body.y == 1 and next_body.x == -1: # Going right then down / going up then left
+                    elif last_body.x == -1 and next_body.y == 1 \
+                         or last_body.y == 1 and next_body.x == -1:
+                        # Going right then down / going up then left
                         self.screen.blit(self.turn_two, snake_block_rect)
-                    elif last_body.x == 1 and next_body.y == -1 or last_body.y == -1 and next_body.x == 1: # Going left then up / going down then right
+                    elif last_body.x == 1 and next_body.y == -1 \
+                         or last_body.y == -1 and next_body.x == 1:
+                        # Going left then up / going down then right
                         self.screen.blit(self.turn_three, snake_block_rect)
-                    elif last_body.x == 1 and next_body.y == 1 or last_body.y == 1 and next_body.x == 1: # Going left then down / going up then right:
+                    elif last_body.x == 1 and next_body.y == 1 \
+                         or last_body.y == 1 and next_body.x == 1:
+                        # Going left then down / going up then right:
                         self.screen.blit(self.turn_four, snake_block_rect)
 
     def direction_draw_head(self):
+        """Find the direction the head is facing."""
         snake_head_direction = self.body[1] - self.body[0]
 
         if snake_head_direction == Vector2(1, 0):
@@ -87,8 +104,9 @@ class Snake:
             self.head = self.head_up
         elif snake_head_direction == Vector2(0, -1):
             self.head = self.head_down
-    
+
     def direction_draw_butt(self):
+        """Find the direction the butt is facing."""
         snake_butt_direction = self.body[1] - self.body[0]
 
         if snake_butt_direction == Vector2(1, 0):
@@ -101,9 +119,9 @@ class Snake:
             self.butt = self.butt_down
 
     def movement(self, started):
-        """The movement of every snake body to its next position."""
+        """Movement of every snake body to its next position."""
         if started:
-            if self.new_body == True:
+            if self.new_body:
                 og_body = self.body
                 og_body.insert(0, og_body[0] + self.direction)
                 self.body = og_body
@@ -112,14 +130,16 @@ class Snake:
                 og_body = self.body[:-1]
                 og_body.insert(0, og_body[0] + self.direction)
                 self.body = og_body
-    
+
     def new_snake_body(self):
         """Check to see if the snake needs a new body."""
         self.new_body = True
-    
+
     def play_eat_sound(self):
+        """Play the eating sound of the snake."""
         self.eat_sound.play()
-    
+
     def reset(self):
+        """Reset the snake completely."""
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
         self.direction = Vector2(0, 0)
