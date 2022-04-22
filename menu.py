@@ -34,4 +34,4 @@ class Menu():
     def start(self):
         self.pygame_run = True
         self.root.quit()
-        self.root.iconify()
+        self.root.destroy()
