@@ -1,8 +1,6 @@
 from tkinter import *
 from tkinter.font import BOLD
 from PIL import ImageTk, Image
-import sys
-
 
 
 class Menu():
@@ -35,4 +33,5 @@ class Menu():
 
     def start(self):
         self.pygame_run = True
-        self.root.destroy()
+        self.root.quit()
+        self.root.withdraw()

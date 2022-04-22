@@ -1,5 +1,4 @@
 import pygame
-import sys
 from snake import Snake
 from food import Food
 from score import Score
@@ -62,7 +61,6 @@ class Game:
             self.clock.tick(self.fps)
         
         pygame.quit()
-        sys.exit()
     
     def draw(self):
         """Draw snake and food onto the display surface."""
