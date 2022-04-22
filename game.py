@@ -2,11 +2,12 @@ import pygame
 import sys
 from snake import Snake
 from food import Food
+from score import Score
 
 
 class Game:
     """Creation of the snake game."""
-    def __init__(self, screen_width, screen_height, cell_size, cell_width, cell_height):
+    def __init__(self, screen_width, screen_height, cell_size, cell_width, cell_height, menu_run):
         """Creation of the screen and game attributes."""
         pygame.init()
         self.cell_size = cell_size
@@ -15,17 +16,21 @@ class Game:
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.screen = pygame.display.set_mode((screen_width, screen_height))
-        pygame.display.set_caption('Snake Game')
+        pygame.display.set_caption("Snake Game")
         self.clock = pygame.time.Clock()
 
         self.fps = 60
         self.running = True
+        self.menu_run = menu_run
 
         self.snake = Snake(self.cell_size)
         self.food = Food(self.cell_size, self.cell_width, self.cell_height)
+        self.score = Score(self.cell_size)
 
     def main(self):
         """Main game loop."""
+        self.game_started = False
+        self.direction_choosen = False
         move_update = pygame.USEREVENT
         pygame.time.set_timer(move_update, 150)
 
@@ -35,7 +40,9 @@ class Game:
                     self.running = False
                 if event.type == move_update:
                     self.update()
-                if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN and self.direction_choosen == False:
+                    self.game_started = True
+                    self.direction_choosen = True
                     if event.key == pygame.K_w or event.key == pygame.K_UP:
                         if self.snake.direction.y != 1:
                             self.snake.direction = pygame.math.Vector2(0, -1)
@@ -49,7 +56,7 @@ class Game:
                         if self.snake.direction.x != -1:
                             self.snake.direction = pygame.math.Vector2(1, 0)
 
-            self.screen.fill((0, 0, 0))
+            self.screen.fill((0, 255, 150))
             self.draw()
             pygame.display.update()
             self.clock.tick(self.fps)
@@ -59,12 +66,15 @@ class Game:
     
     def draw(self):
         """Draw snake and food onto the display surface."""
+        self.background()
         self.food.draw()
         self.snake.draw()
+        self.score.draw(self.snake.body)
 
     def update(self):
         """Updating the screen for movement and collisions."""
-        self.snake.movement()
+        self.direction_choosen = False
+        self.snake.movement(self.game_started)
         self.collisions()
         self.die()
 
@@ -73,6 +83,11 @@ class Game:
         if self.food.position == self.snake.body[0]:
             self.food.random_position()
             self.snake.new_snake_body()
+            self.snake.play_eat_sound()
+        
+        for snake_body in self.snake.body[1:]:
+            if snake_body == self.food.position:
+                self.food.random_position()
 
     def die(self):
         """Detect whether the snake died or not."""
@@ -80,14 +95,33 @@ class Game:
             self.game_over()
         
         for snake_body in self.snake.body[1:]:
-            if snake_body == self.snake.body[0]:
+            if snake_body == self.snake.body[0] and self.game_started:
                 self.game_over()
     
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
-        self.running = False
+        self.snake.reset()
+        self.score.highest_score()
+        if self.running == True:
+            self.running = False
+
+    def background(self):
+        color_one = (0, 255, 0)
+
+        for row in range(self.cell_height):
+            row += 2
+            if row % 2 == 0:
+                for column in range(self.cell_width):
+                    if column % 2 == 0:
+                        checker1_rect = pygame.Rect(column * self.cell_size, row * self.cell_size, self.cell_size, self.cell_size)
+                        pygame.draw.rect(self.screen, color_one, checker1_rect)
+            else:
+                for column in range(self.cell_width):
+                    if column % 2 != 0:
+                        checker1_rect = pygame.Rect(column * self.cell_size, row * self.cell_size, self.cell_size, self.cell_size)
+                        pygame.draw.rect(self.screen, color_one, checker1_rect)
 
 
 if __name__ == '__main__':
-    game = Game((17*30),(17*30), 30, 17, 15)
+    game = Game((17*30),(17*30), 30, 17, 15, True)
     game.main()
