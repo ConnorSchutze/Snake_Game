@@ -34,13 +34,14 @@ class Snake:
         self.straight_vertical = pygame.image.load("Images/straight1.png").convert_alpha()
         self.straight_horizontal = pygame.image.load("Images/straight2.png").convert_alpha()
         
-        self.turn_one = pygame.image.load("Images/turn4.png").convert_alpha() # Wrong
-        self.turn_two = pygame.image.load("Images/turn3.png").convert_alpha() # Wrong
-        self.turn_three = pygame.image.load("Images/turn1.png").convert_alpha() # Correct
-        self.turn_four = pygame.image.load("Images/turn2.png").convert_alpha() # Wrong
+        self.turn_one = pygame.image.load("Images/turn4.png").convert_alpha()
+        self.turn_two = pygame.image.load("Images/turn3.png").convert_alpha()
+        self.turn_three = pygame.image.load("Images/turn1.png").convert_alpha()
+        self.turn_four = pygame.image.load("Images/turn2.png").convert_alpha()
 
         # Sound
         self.eat_sound = pygame.mixer.Sound("Audio/applause.wav")
+        self.eat_sound.set_volume(0.05)
     
     def draw(self):
         """Drawing every snake body onto the display surface."""

@@ -83,6 +83,7 @@ class Game:
             self.food.random_position()
             self.snake.new_snake_body()
             self.snake.play_eat_sound()
+            self.score.highest_score()
         
         for snake_body in self.snake.body[1:]:
             if snake_body == self.food.position:
@@ -100,7 +101,6 @@ class Game:
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
         self.snake.reset()
-        self.score.highest_score()
         if self.running == True:
             self.running = False
 
