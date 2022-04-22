@@ -9,8 +9,9 @@ class Menu():
     def __init__(self, pygame_run):
         self.pygame_run = pygame_run
 
+    def main(self, high_score):
+        self.high_score = str(high_score)
 
-    def main(self):
         self.root = Tk()
         self.root.title("SnakeGame")
         self.root.minsize(width=400, height=400)
@@ -19,7 +20,7 @@ class Menu():
         self.t2 = "Quit"
         self.t3 = "Welcome to Snake Game!"
         """set t4 to read the file scoreboard.txt KEEP ONLY THE HIGHEST SCORE IN THERE"""
-        self.t4 = "5670"
+        self.t4 = self.high_score
         self.img_menu = ImageTk.PhotoImage(Image.open("Images\menusnake.png"))
         self.menu_label = Label(self.root, image=self.img_menu).place(x=0, y=0, relwidth=1, relheight=1)
         self.welcome_label = Label(self.root, text=self.t3, padx=20, pady=20, bg='#006E02', fg='white', font=25).grid(row=0, column=1)

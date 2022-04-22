@@ -101,6 +101,7 @@ class Game:
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
         self.snake.reset()
+        self.score.highest_score()
         if self.running == True:
             self.running = False
 

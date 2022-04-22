@@ -10,6 +10,7 @@ class Score:
         self.score_x = score_x
         self.score_y = score_y
         self.score_location = (self.score_x, self.score_y)
+        self.high_score = 0
         self.font = pygame.font.Font(None, 25)
         self.screen = pygame.display.get_surface()
         self.fg_color = (255, 255, 255)
@@ -26,3 +27,7 @@ class Score:
         self.screen.blit(score_surface, score_rect)
         self.screen.blit(self.apple, apple_rect)
         pygame.draw.rect(self.screen, self.bg_color, fg_rect, 1)
+    
+    def highest_score(self):
+        if self.score >= self.high_score:
+            self.high_score = self.score
