@@ -29,13 +29,14 @@ if __name__ == '__main__':
     running = True
     first_time = True
     tkinter_menu = Menu(False)
+    game = Game(screen_width, screen_height, cell_size, cell_width, cell_height, True)
+    
     while running:
         if first_time:
             tkinter_menu.main(0)
             first_time = False
         
         if tkinter_menu.pygame_run == True:
-            game = Game(screen_width, screen_height, cell_size, cell_width, cell_height, True)
             game.main()
             tkinter_menu.pygame_run = False
         

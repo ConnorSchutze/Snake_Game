@@ -14,20 +14,21 @@ class Game:
         self.cell_height = cell_height
         self.screen_width = screen_width
         self.screen_height = screen_height
-        self.screen = pygame.display.set_mode((screen_width, screen_height))
-        pygame.display.set_caption("Snake Game")
-        self.clock = pygame.time.Clock()
 
         self.fps = 60
         self.running = True
         self.menu_run = menu_run
 
+    def main(self):
+        """Main game loop."""
+        self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
+        pygame.display.set_caption("Snake Game")
+        self.clock = pygame.time.Clock()
+
         self.snake = Snake(self.cell_size)
         self.food = Food(self.cell_size, self.cell_width, self.cell_height)
         self.score = Score(self.cell_size)
 
-    def main(self):
-        """Main game loop."""
         self.game_started = False
         self.direction_choosen = False
         move_update = pygame.USEREVENT
