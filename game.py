@@ -16,12 +16,16 @@ class Game:
         self.screen_height = screen_height
 
         self.game_text_color = (21, 61, 28)
-        self.game_over_color = (0, 0, 0)
+        self.game_over_color = (255, 0, 0)
+        self.fg_color = (255, 255, 255)
+        self.bg_color = (0, 0, 0)
         self.game_font = pygame.font.Font(None, 25)
+        self.game_over_font = pygame.font.Font(None, 50)
         self.game_text = self.game_font.render("Restart (r) Quit (q)", True, self.game_text_color)
+        self.game_over_text = self.game_over_font.render("GAME OVER", True, self.game_over_color)
         self.game_text_rect = self.game_text.get_rect(center = (screen_width-100, 20))
-        self.game_over_text = self.game_font.render("GAME OVER", True, self.game_over_color)
         self.game_over_rect = self.game_over_text.get_rect(center = (screen_width/2, screen_height/2))
+        self.fg_rect = pygame.Rect(self.game_over_rect.left - 10, self.game_over_rect.top - 10, self.game_over_rect.width + 20, self.game_over_rect.height + 20)
 
         self.fps = 60
         self.running = True
@@ -87,7 +91,9 @@ class Game:
         self.screen.blit(self.game_text, self.game_text_rect)
 
         if self.dead:
+            pygame.draw.rect(self.screen, self.fg_color, self.fg_rect)
             self.screen.blit(self.game_over_text, self.game_over_rect)
+            pygame.draw.rect(self.screen, self.bg_color, self.fg_rect, 1)
 
     def update(self):
         """Updating the screen for movement and collisions."""
