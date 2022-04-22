@@ -15,13 +15,17 @@ class Game:
         self.screen_width = screen_width
         self.screen_height = screen_height
 
-        self.game_text_color = (255, 255, 255)
+        self.game_text_color = (21, 61, 28)
+        self.game_over_color = (0, 0, 0)
         self.game_font = pygame.font.Font(None, 25)
         self.game_text = self.game_font.render("Restart (r) Quit (q)", True, self.game_text_color)
-        self.game_text_rect = self.game_text.get_rect(center = (150, 20))
+        self.game_text_rect = self.game_text.get_rect(center = (screen_width-100, 20))
+        self.game_over_text = self.game_font.render("GAME OVER", True, self.game_over_color)
+        self.game_over_rect = self.game_over_text.get_rect(center = (screen_width/2, screen_height/2))
 
         self.fps = 60
         self.running = True
+        self.dead = False
 
     def main(self):
         """Main game loop."""
@@ -47,10 +51,12 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_r:
                         self.snake.reset()
+                        self.dead = False
                     if event.key == pygame.K_q:
                         self.running = False
                 if event.type == pygame.KEYDOWN and self.direction_choosen == False:
                     self.game_started = True
+                    self.dead = False
                     self.direction_choosen = True
                     if event.key == pygame.K_w or event.key == pygame.K_UP:
                         if self.snake.direction.y != 1:
@@ -78,6 +84,10 @@ class Game:
         self.food.draw()
         self.snake.draw()
         self.score.draw(self.snake.body)
+        self.screen.blit(self.game_text, self.game_text_rect)
+
+        if self.dead:
+            self.screen.blit(self.game_over_text, self.game_over_rect)
 
     def update(self):
         """Updating the screen for movement and collisions."""
@@ -110,9 +120,7 @@ class Game:
     def game_over(self):
         """When the snake dies, displays Game Over text and options."""
         self.snake.reset()
-        self.game_started = False
-        while self.game_started == False:
-            self.screen.blit(self.game_text, self.game_text_rect)
+        self.dead = True
 
     def background(self):
         color_one = (0, 255, 0)
