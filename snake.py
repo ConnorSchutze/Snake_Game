@@ -21,23 +21,23 @@ class Snake:
         self.new_body = False
 
         # Snake Images
-        self.head_up = pygame.image.load("Images/headup.png").convert_alpha() # Correct
-        self.head_down = pygame.image.load("Images/headup.png").convert_alpha() # Wrong
-        self.head_left = pygame.image.load("Images/headup.png").convert_alpha() # Wrong
-        self.head_right = pygame.image.load("Images/headup.png").convert_alpha() # Wrong
+        self.head_up = pygame.image.load("Images/head1.png").convert_alpha()
+        self.head_down = pygame.image.load("Images/head3.png").convert_alpha()
+        self.head_left = pygame.image.load("Images/head4.png").convert_alpha()
+        self.head_right = pygame.image.load("Images/head2.png").convert_alpha()
         
-        self.butt_up = pygame.image.load("Images/butt.png").convert_alpha() # Correct
-        self.butt_down = pygame.image.load("Images/butt.png").convert_alpha() # Wrong
-        self.butt_left = pygame.image.load("Images/butt.png").convert_alpha() # Wrong
-        self.butt_right = pygame.image.load("Images/butt.png").convert_alpha() # Wrong
+        self.butt_up = pygame.image.load("Images/butt.png").convert_alpha()
+        self.butt_down = pygame.image.load("Images/butt3.png").convert_alpha()
+        self.butt_left = pygame.image.load("Images/butt4.png").convert_alpha()
+        self.butt_right = pygame.image.load("Images/butt2.png").convert_alpha()
         
-        self.straight_vertical = pygame.image.load("Images/straight1.png").convert_alpha() # Correct
-        self.straight_horizontal = pygame.image.load("Images/straight1.png").convert_alpha() # Wrong
+        self.straight_vertical = pygame.image.load("Images/straight1.png").convert_alpha()
+        self.straight_horizontal = pygame.image.load("Images/straight2.png").convert_alpha()
         
-        self.turn_one = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
-        self.turn_two = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
+        self.turn_one = pygame.image.load("Images/turn4.png").convert_alpha() # Wrong
+        self.turn_two = pygame.image.load("Images/turn3.png").convert_alpha() # Wrong
         self.turn_three = pygame.image.load("Images/turn1.png").convert_alpha() # Correct
-        self.turn_four = pygame.image.load("Images/turn1.png").convert_alpha() # Wrong
+        self.turn_four = pygame.image.load("Images/turn2.png").convert_alpha() # Wrong
 
         # Sound
         self.eat_sound = pygame.mixer.Sound("Audio/applause.wav")
