@@ -1,7 +1,7 @@
 """File: game.py.
 
 Team NO: 5
-Author: Connor Schutze
+Author: Connor Schutze and Zac Ohran
 Description: Creates the snake, food, score, and background objects.
 Runs the actual snake game and all of the functions with it.
 """

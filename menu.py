@@ -1,7 +1,7 @@
 """File: menu.py.
 
 Team NO: 5
-Author: Connor Schutze
+Author: Connor Schutze and Zac Ohran
 Description: Creating the tkinter main menu.
 """
 

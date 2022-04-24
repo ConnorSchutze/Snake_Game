@@ -1,7 +1,7 @@
 """File: snake.py.
 
 Team NO: 5
-Author: Connor Schutze
+Author: Connor Schutze and Zac Ohran
 Description: Snake class script, creates the snake object.
 """
 
@@ -79,6 +79,7 @@ class Snake:
                        or last_body.y == -1 and next_body.x == -1:
                         # Going right then up / going down then left
                         self.screen.blit(self.turn_one, snake_block_rect)
+                        # pycodesttle doesn't work? It should be correct.
                     elif last_body.x == -1 and next_body.y == 1 \
                          or last_body.y == 1 and next_body.x == -1:
                         # Going right then down / going up then left

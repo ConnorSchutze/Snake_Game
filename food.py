@@ -1,7 +1,7 @@
 """File: food.py.
 
 Team NO: 5
-Author: Connor Schutze
+Author: Connor Schutze and Zac Ohran
 Description: Generating food onto the screen in random places.
 """
 

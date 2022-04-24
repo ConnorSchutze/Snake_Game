@@ -1,7 +1,7 @@
 """File: score.py.
 
 Team NO: 5
-Author: Connor Schutze
+Author: Connor Schutze and Zac Ohran
 Description: Score class, keeps score and high score.
 """
 
